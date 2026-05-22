@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+  <title>Bits & Blackboards | Andre's First-Year EdTech Diary | BTVTEd-CSS</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fb;
+      color: #1a2a3f;
+      scroll-behavior: smooth;
+      line-height: 1.5;
+    }
+
+    :root {
+      --primary-deep: #0f2b3d;
+      --primary-accent: #2c7da0;
+      --secondary-accent: #61a5c2;
+      --light-bg: #ffffff;
+      --card-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
+      --hover-transition: all 0.25s ease;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 43, 61, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-weight: 500;
+    }
+
+    .navbar a {
+      color: #f0f9ff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 40px;
+      transition: var(--hover-transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar a:hover {
+      background: rgba(97, 165, 194, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    section {
+      scroll-margin-top: 85px;
+      display: none;
+      animation: fadeIn 0.35s ease-out;
+    }
+
+    section.active-section {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .clickable-card {
+      background: var(--light-bg);
+      border-radius: 28px;
+      padding: 2rem 1.5rem;
+      box-shadow: var(--card-shadow);
+      cursor: pointer;
+      transition: var(--hover-transition);
+      text-align: center;
+      border: 1px solid rgba(44, 125, 160, 0.2);
+    }
+
+    .clickable-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.2);
+      border-color: var(--primary-accent);
+    }
+
+    .clickable-card i {
+      font-size: 3rem;
+      color: var(--primary-accent);
+      margin-bottom: 1rem;
+    }
+
+    .clickable-card h3 {
+      font-size: 1.65rem;
+      margin-bottom: 0.75rem;
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 600;
+    }
+
+    .clickable-card p {
+      color: #3a546d;
+      font-size: 0.95rem;
+    }
+
+    /* TWO COLUMN LAYOUT */
+    .lesson-two-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+    .lesson-col {
+      flex: 1;
+      min-width: 300px;
+      background: #ffffff;
+      padding: 1.8rem;
+      border-radius: 28px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #eef2f8;
+    }
+    .lesson-col h3 {
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+      margin-top: 1.2rem;
+      color: var(--primary-deep);
+      border-left: 4px solid var(--primary-accent);
+      padding-left: 0.8rem;
+    }
+    .lesson-col h3:first-of-type {
+      margin-top: 0;
+    }
+    .memo-header {
+      background: linear-gradient(135deg, #0f2b3d 0%, #1e4a6e 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 32px;
+      margin-bottom: 1.8rem;
+    }
+
+    .reflection-quote {
+      background: #eef2f7;
+      padding: 1.8rem;
+      border-radius: 28px;
+      font-style: italic;
+      margin: 1rem 0;
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      margin-top: 1rem;
+      background: transparent;
+      border: 1.5px solid var(--primary-accent);
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      color: var(--primary-deep);
+      font-weight: 600;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+      background: var(--primary-accent);
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #5b6f82;
+      border-top: 1px solid #dce5ec;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 760px) {
+      .navbar {
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+      }
+      .container {
+        padding: 1.5rem;
+      }
+      .memo-header h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .dashboard-greeting {
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    /* NEW COVER STYLES - Full bleed background */
+    .cover-full {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: -2rem -2rem 0 -2rem;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3e 50%, #0f2b3d 100%);
+      background-size: cover;
+      background-position: center;
+      border-radius: 0;
+    }
+    .cover-full::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.08"><path fill="none" stroke="white" stroke-width="2" d="M0,500 L1000,500 M500,0 L500,1000 M250,250 L750,750 M250,750 L750,250" /><circle cx="500" cy="500" r="400" fill="none" stroke="white" stroke-width="1.5"/><circle cx="500" cy="500" r="200" fill="none" stroke="white" stroke-width="1"/><circle cx="500" cy="500" r="100" fill="none" stroke="white" stroke-width="0.8"/><path d="M500,100 L500,900 M100,500 L900,500" stroke="white" stroke-width="0.5" opacity="0.3"/></svg>');
+      background-repeat: repeat;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .cover-full::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+      pointer-events: none;
+    }
+    .cover-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .cover-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      letter-spacing: -0.02em;
+    }
+    .cover-subtitle {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+    .cover-date {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+    .cover-badge {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: white;
+    }
+    .enter-portfolio-btn {
+      background: linear-gradient(135deg, #2c7da0, #1e4a6e);
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .enter-portfolio-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 35px -8px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, #3a8db0, #2c5d80);
+    }
+    .cover-element {
+      background: linear-gradient(115deg, #eef4fc 0%, #ffffff 100%);
+      border-radius: 2rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .enter-button {
+      background: var(--primary-deep);
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      border-radius: 60px;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .enter-button:hover {
+      background: var(--primary-accent);
+      transform: scale(1.02);
+    }
+
+    .closing-image-card {
+      background: white;
+      border-radius: 30px;
+      padding: 1rem;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+      max-width: 320px;
+      transition: transform 0.3s ease;
+    }
+    .closing-image-card:hover {
+      transform: translateY(-5px);
+    }
+    .course-badge {
+      background: linear-gradient(135deg, #0032A0, #CE1126);
+      color: white;
+      padding: 0.25rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+    .references-list {
+      background: #f8fafc;
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      border-left: 5px solid var(--primary-accent);
+    }
+    .references-list h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-deep);
+    }
+    .references-list ul {
+      margin-left: 1.5rem;
+      line-height: 1.7;
+    }
+    .references-list li {
+      margin-bottom: 0.5rem;
+      color: #3a546d;
+    }
+    .first-year-note {
+      background: #fff9e6;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 4px solid #FCD116;
+      font-size: 0.9rem;
+    }
+    /* LESSON EXPLORER STYLES */
+    .lesson-explorer-section {
+      margin: 2rem 0 1rem;
+      padding: 1rem 0;
+    }
+    .explorer-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--primary-deep);
+      border-left: 5px solid var(--primary-accent);
+      padding-left: 1rem;
+    }
+    .explorer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .explorer-btn {
+      background: white;
+      border: 1px solid #dce5ec;
+      border-radius: 60px;
+      padding: 0.8rem 1rem;
+      font-weight: 600;
+      color: var(--primary-deep);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    .explorer-btn i {
+      color: var(--primary-accent);
+      font-size: 1.1rem;
+    }
+    .explorer-btn:hover {
+      background: var(--primary-accent);
+      color: white;
+      border-color: var(--primary-accent);
+      transform: translateY(-3px);
+    }
+    .explorer-btn:hover i {
+      color: white;
+    }
+    .lesson-detail-panel {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 1.8rem;
+      margin-top: 2rem;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #eef2f8;
+      display: none;
+    }
+    .lesson-detail-panel.active-detail {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+    .close-detail {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #8ba0b5;
+      transition: 0.2s;
+    }
+    .close-detail:hover { color: var(--primary-deep); }
+    .procedure-step {
+      background: #f8fafc;
+      margin: 0.6rem 0;
+      padding: 0.6rem 1rem;
+      border-radius: 14px;
+      border-left: 3px solid var(--primary-accent);
+    }
+    .hashtag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+    .hashtag {
+      background: #e2e8f0;
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #1a3b4e;
+    }
+    
+    /* INTERACTIVE QUIZ STYLES */
+    .interactive-quiz {
+      background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border: 2px solid #e2e8f0;
+      box-shadow: var(--card-shadow);
+    }
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px dashed var(--primary-accent);
+    }
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+    }
+    .quiz-score {
+      background: var(--primary-deep);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .quiz-question {
+      background: #f1f5f9;
+      padding: 1rem 1.2rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: var(--primary-deep);
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+    .quiz-option {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 60px;
+      padding: 0.7rem 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
+    .quiz-option:hover {
+      background: #eef2ff;
+      border-color: var(--primary-accent);
+      transform: translateX(5px);
+    }
+    .quiz-option.disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .quiz-option.correct-highlight {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #166534;
+    }
+    .quiz-option.wrong-highlight {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #991b1b;
+    }
+    .quiz-feedback {
+      padding: 0.8rem 1rem;
+      border-radius: 16px;
+      margin: 1rem 0;
+      font-weight: 500;
+    }
+    .quiz-feedback.correct {
+      background: #dcfce7;
+      color: #166534;
+      border-left: 4px solid #22c55e;
+    }
+    .quiz-feedback.wrong {
+      background: #fee2e2;
+      color: #991b1b;
+      border-left: 4px solid #ef4444;
+    }
+    .next-btn {
+      background: var(--primary-accent);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 0.5rem;
+    }
+    .next-btn:hover {
+      background: var(--primary-deep);
+      transform: scale(1.02);
+    }
+    .quiz-complete {
+      text-align: center;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      border-radius: 20px;
+    }
+    .reset-quiz {
+      background: var(--primary-deep);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    .quiz-progress {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 0.5rem;
+    }
+
+    /* Policy Memo specific styles */
+    .policy-memo-card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #eef2f8;
+    }
+    .memo-header-fields {
+      background: #f1f5f9;
+      padding: 1.2rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    .memo-header-fields p {
+      margin: 0.3rem 0;
+    }
+    .gap-table, .guideline-table, .responsibility-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    .gap-table th, .gap-table td,
+    .guideline-table th, .guideline-table td,
+    .responsibility-table th, .responsibility-table td {
+      border: 1px solid #dce5ec;
+      padding: 0.8rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .gap-table th, .guideline-table th, .responsibility-table th {
+      background: #eef2fc;
+      font-weight: 700;
+      color: var(--primary-deep);
+    }
+    .reflection-callout {
+      background: #e6f7ec;
+      border-left: 6px solid #2c7da0;
+      padding: 1.5rem;
+      border-radius: 20px;
+      margin: 1.5rem 0;
+      font-style: normal;
+    }
+    .confidential-footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #9ca3af;
+      margin-top: 1rem;
+      border-top: 1px dashed #cbd5e1;
+      padding-top: 1rem;
+    }
+    .icon-text {
+      margin-right: 8px;
+      color: var(--primary-accent);
+    }
+
+    /* Toolkit Guide specific styles */
+    .toolkit-guide-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .toolkit-card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.8rem;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #eef2f8;
+      transition: transform 0.2s;
+    }
+    .toolkit-card:hover {
+      transform: translateY(-4px);
+    }
+    .toolkit-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #eef2fc;
+      padding-bottom: 1rem;
+    }
+    .toolkit-icon {
+      font-size: 2.5rem;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #eef2fc, #ffffff);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-accent);
+    }
+    .toolkit-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+    }
+    .toolkit-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .detail-badge {
+      background: #f8fafc;
+      padding: 0.8rem;
+      border-radius: 16px;
+    }
+    .detail-badge strong {
+      color: var(--primary-accent);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .video-access {
+      background: #f0f6fa;
+      padding: 1rem;
+      border-radius: 20px;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px solid #dce5ec;
+    }
+    .video-access:hover {
+      background: #e6f0f5;
+    }
+    .video-placeholder {
+      background: var(--primary-deep);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .synthesis-box {
+      background: linear-gradient(135deg, #eef2fc, #ffffff);
+      border-radius: 28px;
+      padding: 1.8rem;
+      margin-top: 2rem;
+      border-left: 6px solid var(--primary-accent);
+    }
+
+    /* Single column reflection */
+    .reflection-single-column {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .reflection-single-column .reflection-quote {
+      margin-bottom: 1.5rem;
+    }
+    .reflection-growth-box {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 1.8rem;
+      margin-top: 1.5rem;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #eef2f8;
+    }
+    .reflection-growth-box h3 {
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+      color: var(--primary-deep);
+      border-left: 4px solid var(--primary-accent);
+      padding-left: 0.8rem;
+    }
+    .reflection-growth-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .reflection-growth-grid .growth-col {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    /* NEW STYLES FOR CLOSING SECTION */
+    .closing-container {
+      background: white;
+      border-radius: 32px;
+      padding: 2rem;
+      margin: 1rem 0;
+      box-shadow: var(--card-shadow);
+    }
+    .profile-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary-accent);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+    .profile-circle:hover {
+      transform: scale(1.05);
+    }
+    .contact-info {
+      background: #f8fafc;
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .contact-info a {
+      color: var(--primary-accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .contact-info a:hover {
+      color: var(--primary-deep);
+      text-decoration: underline;
+    }
+    .linkedin-mockup {
+      background: linear-gradient(135deg, #0A66C2, #0077B5);
+      border-radius: 20px;
+      padding: 1.2rem;
+      color: white;
+      text-align: center;
+      margin: 1.5rem auto;
+      max-width: 320px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .linkedin-mockup:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -10px rgba(10, 102, 194, 0.4);
+    }
+    .linkedin-mockup i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .linkedin-mockup h4 {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+    .linkedin-mockup p {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      margin: 0;
+    }
+    .closing-flex {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    /* Download button styles */
+    .download-lesson-btn {
+      background: linear-gradient(135deg, #2c7da0, #1e4a6e);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .download-lesson-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      background: linear-gradient(135deg, #3a8db0, #2c5d80);
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="#" data-section="home"><i class="fas fa-home"></i> Home</a>
+  <a href="#" data-section="policyMemo"><i class="fas fa-file-alt"></i> Policy Memo</a>
+  <a href="#" data-section="toolkit"><i class="fas fa-tools"></i> Toolkit Guide</a>
+  <a href="#" data-section="reflection"><i class="fas fa-comment-dots"></i> Reflection</a>
+  <a href="#" data-section="lesson"><i class="fas fa-chalkboard-user"></i> Lesson</a>
+  <a href="#" data-section="closing"><i class="fas fa-heart"></i> Closing</a>
+  <a href="#" data-section="references"><i class="fas fa-book"></i> References</a>
+</div>
+
+<main class="container">
+  <!-- NEW HOME SECTION - Professional Cover Page -->
+  <section id="home-section" class="active-section">
+    <div class="cover-full">
+      <div class="cover-content">
+        <div class="cover-badge">
+          <i class="fas fa-graduation-cap"></i> BTVTEd-CSS | First Year
+        </div>
+        <h1 class="cover-title">Emerging EdTech Specialist Portfolio</h1>
+        <p class="cover-subtitle">Andre S. Jumalon</p>
+        <p class="cover-date">E-Portfolio 2k26 | Computer Systems Servicing NC II</p>
+        <button type="button" class="enter-portfolio-btn" id="enterPortfolioBtn">
+          <i class="fas fa-arrow-right"></i> Enter Portfolio
+        </button>
+      </div>
+    </div>
+    
+    <!-- Dashboard Section (hidden until Enter Portfolio is clicked) -->
+    <div id="dashboardContent" style="display: none; margin-top: 2rem;">
+      <div class="dashboard-greeting">
+        <i class="fas fa-th-large"></i> 📖 My First-Year Learning Chapters
+      </div>
+      <div class="cards-grid">
+        <div class="clickable-card" data-nav="policyMemo"><i class="fas fa-memo"></i><h3>Policy Memo</h3><p>Summative Activity 01: ICT Integration Analysis & Recommendations</p></div>
+        <div class="clickable-card" data-nav="toolkit"><i class="fas fa-toolbox"></i><h3>Toolkit Guide</h3><p>Curated digital tools with learning theories & accessibility</p></div>
+        <div class="clickable-card" data-nav="reflection"><i class="fas fa-brain"></i><h3>Reflection</h3><p>My growth journey — from nervous freshman to EdTech explorer.</p></div>
+        <div class="clickable-card" data-nav="lesson"><i class="fas fa-laptop-code"></i><h3>Lesson Blueprint</h3><p>A sample CSS lesson plan I designed (with tech magic!).</p></div>
+      </div>
+      <p style="margin-top: 2rem; text-align: center; font-size: 0.85rem;"><i class="fas fa-link"></i> Click any card above or use the menu.</p>
+    </div>
+  </section>
+
+  <!-- ========== POLICY MEMO SECTION (Summative Activity 01) ========== -->
+  <section id="policyMemo-section">
+    <div class="memo-header">
+      <h1><i class="fas fa-landmark"></i> Comprehensive ICT Integration E-Portfolio</h1>
+      <p>Summative Activity 01 | BTVTEd-CSS 1 | Andre S Jumalon</p>
+    </div>
+
+    <div class="policy-memo-card">
+      <div class="memo-header-fields">
+        <p><strong>TO:</strong> School Head / ICT Coordinator</p>
+        <p><strong>FROM:</strong> ANDRE S. JUMALON, BTVTEd CSS 1</p>
+        <p><strong>DATE:</strong> May 21, 2026</p>
+        <p><strong>SUBJECT:</strong> ICT Policy Analysis & Classroom Implementation Recommendations</p>
+      </div>
+
+      <h3><i class="fas fa-bullseye icon-text"></i> Purpose & Scope</h3>
+      <div class="first-year-note" style="margin-top: 0.5rem;">
+        This policy memo analyzes existing ICT integration guidelines within TVET institutions, identifies key implementation gaps, and proposes actionable classroom behaviors aligned with DepEd and TESDA standards. The scope focuses on Computer Systems Servicing (CSS) NC II delivery, ensuring equitable access to technology and fostering digital citizenship among learners.
+      </div>
+
+      <h3 style="margin-top: 1.5rem;"><i class="fas fa-table icon-text"></i> Policy Gaps Analysis</h3>
+      <table class="gap-table">
+        <thead><tr><th>Policy / Guideline</th><th>Key Requirement</th><th>Implementation Gap</th></tr></thead>
+        <tbody>
+          <tr><td><i class="fas fa-chalkboard"></i> DepEd Order No. 42, s. 2017 (PPST)</td>
+            <td>Teachers must integrate ICT to enhance learning outcomes and develop digital literacy.</td>
+            <td>Limited access to updated hardware and simulation tools; teachers lack structured training on ICT integration for CSS.</td>
+            </tr>
+          <tr><td><i class="fas fa-microchip"></i> TESDA CSS NCII Competency Standards</td>
+            <td>Hands-on assembly/disassembly, network configuration, and safety procedures must be practiced.</td>
+            <td>Insufficient lab equipment per student ratio; no offline-ready modules for students with poor internet connectivity.</td>
+            </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top: 1.5rem;"><i class="fas fa-clipboard-list icon-text"></i> Actionable Classroom Behaviors</h3>
+      <table class="guideline-table">
+        <thead><tr><th>Guideline (Numbered List + Icons)</th><th>Aligned Policy</th><th>Addresses This Gap (from Section 2)</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>1️⃣ <i class="fas fa-plug"></i> <strong>Implement Offline CSS Lab Kits</strong></td>
+            <td>TESDA CSS NCII & DepEd Commons</td>
+            <td>Bridges the lack of reliable internet and ensures continuous hands-on practice.</td>
+            </tr>
+          <tr>
+            <td>2️⃣ <i class="fas fa-chalkboard-user"></i> <strong>Rotational Peer-Teaching on Assembly</strong></td>
+            <td>PPST Strand 3.4 (Learner-Centered Strategies)</td>
+            <td>Maximizes limited hardware by allowing every student to observe, assist, and reflect.</td>
+            </tr>
+          <tr>
+            <td>3️⃣ <i class="fas fa-sim-card"></i> <strong>Simulation-Based Pre-Assembly Drills</strong></td>
+            <td>DepEd ICT Integration Framework</td>
+            <td>Reduces risk of hardware damage and prepares students with virtual troubleshooting experience.</td>
+            </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top: 1.5rem;"><i class="fas fa-users icon-text"></i> Roles & Monitoring Plan</h3>
+      <table class="responsibility-table">
+        <thead><tr><th>Guideline #</th><th>Who is Responsible</th><th>Monitoring Suggestion</th></tr></thead>
+        <tbody>
+          <tr><td>1️⃣ Offline CSS Lab Kits</td><td>ICT Coordinator & CSS Master Teacher</td><td>Monthly inventory check; student feedback forms on module usability.</td></tr>
+          <tr><td>2️⃣ Rotational Peer-Teaching</td><td>Classroom CSS Instructor & Student Leaders</td><td>Observation checklist; peer evaluation rubric every 2 weeks.</td></tr>
+          <tr><td>3️⃣ Simulation-Based Drills</td><td>ICT Lab Technician & Subject Teacher</td><td>Track completion rates in Packet Tracer; weekly log of virtual lab performance.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top: 1.5rem;"><i class="fas fa-comment-dots icon-text"></i> Reflective Annotation</h3>
+      <div class="reflection-callout">
+        <i class="fas fa-quote-left" style="margin-right: 8px; color: #2c7da0;"></i> 
+        <strong>What this analysis taught me about my role as a designer:</strong><br><br>
+        This policy analysis revealed that as a future TVET educator, I am not just a technician but a learning architect. I must design inclusive experiences that bridge infrastructure gaps — using offline resources, peer collaboration, and simulation tools. The gaps identified pushed me to think beyond ideal settings and create adaptable, resilient instruction. My role is to ensure that every student, regardless of connectivity or hardware access, can master CSS competencies safely and confidently.
+      </div>
+
+      <div class="confidential-footer">🔒 Confidential – For School Internal Use Only</div>
+    </div>
+  </section>
+
+  <!-- ========== PAGE 4: TOOLKIT GUIDE ========== -->
+  <section id="toolkit-section">
+    <div class="memo-header">
+      <h1><i class="fas fa-toolbox"></i> Toolkit for Pedagogically-Aligned Technology Integration</h1>
+      <p>Curated digital tools • Learning theories • Accessibility in video format</p>
+    </div>
+
+    <div class="toolkit-guide-grid">
+      <!-- Tool 1: Cisco Packet Tracer -->
+      <div class="toolkit-card">
+        <div class="toolkit-header">
+          <div class="toolkit-icon"><i class="fas fa-network-wired"></i></div>
+          <div class="toolkit-name">Cisco Packet Tracer</div>
+        </div>
+        <div class="toolkit-details">
+          <div class="detail-badge"><strong>📚 Aligned Learning Theory/Model</strong><br>Constructivism + Experiential Learning (Kolb)</div>
+          <div class="detail-badge"><strong>🎯 Content Area</strong><br>Technology / Computer Systems Servicing (CSS NCII)</div>
+          <div class="detail-badge"><strong>💡 Justification</strong><br>Allows students to design, configure, and troubleshoot networks without physical hardware. Bridges theory and practice, reduces lab costs, and supports self-paced exploration.</div>
+        </div>
+        <div class="video-access" onclick="alert('🎥 Accessibility Feature: Packet Tracer includes screen reader support, high-contrast mode, and keyboard shortcuts. The desktop app offers offline access. Video tutorial available.')">
+          <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
+        </div>
+      </div>
+
+      <!-- Tool 2: VirtualBox -->
+      <div class="toolkit-card">
+        <div class="toolkit-header">
+          <div class="toolkit-icon"><i class="fas fa-desktop"></i></div>
+          <div class="toolkit-name">Oracle VirtualBox</div>
+        </div>
+        <div class="toolkit-details">
+          <div class="detail-badge"><strong>📚 Aligned Learning Theory/Model</strong><br>Discovery Learning (Bruner)</div>
+          <div class="detail-badge"><strong>🎯 Content Area</strong><br>Technology / Operating Systems / CSS</div>
+          <div class="detail-badge"><strong>💡 Justification</strong><br>Enables safe sandboxed environment for OS installation, partitioning, and troubleshooting. Fosters experimentation without damaging host hardware.</div>
+        </div>
+        <div class="video-access" onclick="alert('🎥 Accessibility: VirtualBox supports high contrast, magnification tools, custom hotkeys, and narrator integration. Video tutorial available.')">
+          <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
+        </div>
+      </div>
+
+      <!-- Tool 3: DepEd Commons + TESDA e-LMS -->
+      <div class="toolkit-card">
+        <div class="toolkit-header">
+          <div class="toolkit-icon"><i class="fas fa-database"></i></div>
+          <div class="toolkit-name">DepEd Commons + TESDA e-LMS</div>
+        </div>
+        <div class="toolkit-details">
+          <div class="detail-badge"><strong>📚 Aligned Learning Theory/Model</strong><br>Connectivism (Siemens)</div>
+          <div class="detail-badge"><strong>🎯 Content Area</strong><br>Cross-curricular (Technology, English, Math, TLE, Science)</div>
+          <div class="detail-badge"><strong>💡 Justification</strong><br>Free, localized, offline-capable platforms aligned with DepEd/TESDA competencies. Promotes equity and continuous learning beyond classroom walls.</div>
+        </div>
+        <div class="video-access" onclick="alert('🎥 Accessibility: Text-to-speech, adjustable font sizes, downloadable offline modules, screen reader navigation. Video guide available.')">
+          <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
+        </div>
+      </div>
+
+      <!-- Tool 4: Google Classroom -->
+      <div class="toolkit-card">
+        <div class="toolkit-header">
+          <div class="toolkit-icon"><i class="fab fa-google"></i></div>
+          <div class="toolkit-name">Google Classroom</div>
+        </div>
+        <div class="toolkit-details">
+          <div class="detail-badge"><strong>📚 Aligned Learning Theory/Model</strong><br>Collaborative Learning + Flipped Classroom</div>
+          <div class="detail-badge"><strong>🎯 Content Area</strong><br>All subjects (P.E., English, Math, Science, Technology, Social Studies, Arts)</div>
+          <div class="detail-badge"><strong>💡 Justification</strong><br>Streamlines assignment distribution, feedback loops, and parent communication. Supports differentiated instruction and real-time collaboration.</div>
+        </div>
+        <div class="video-access" onclick="alert('🎥 Accessibility: ChromeVox screen reader, voice typing, translation tools, closed captions, mobile accessibility. Video walkthrough available.')">
+          <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
+        </div>
+      </div>
+
+      <!-- Tool 5: Canva for Education -->
+      <div class="toolkit-card">
+        <div class="toolkit-header">
+          <div class="toolkit-icon"><i class="fas fa-chalkboard-user"></i></div>
+          <div class="toolkit-name">Canva for Education</div>
+        </div>
+        <div class="toolkit-details">
+          <div class="detail-badge"><strong>📚 Aligned Learning Theory/Model</strong><br>Universal Design for Learning (UDL)</div>
+          <div class="detail-badge"><strong>🎯 Content Area</strong><br>All subjects (Visual Arts, English, Social Studies, Technology, Math, Science)</div>
+          <div class="detail-badge"><strong>💡 Justification</strong><br>Empowers students to create infographics, presentations, and posters. Low floor, high ceiling – supports diverse learners and creative expression.</div>
+        </div>
+        <div class="video-access" onclick="alert('🎥 Accessibility: Alt-text for images, keyboard shortcuts, screen reader support, color-blind friendly templates. Video tutorial available.')">
+          <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
+        </div>
+      </div>
+
+      <!-- Tool 6: Offline-First Resources -->
+      <div class="toolkit-card">
+        <div class="toolkit-header">
+          <div class="toolkit-icon"><i class="fas fa-mobile-alt"></i></div>
+          <div class="toolkit-name">Offline-First Resources (Moodle Offline / Video Tutorials)</div>
+        </div>
+        <div class="toolkit-details">
+          <div class="detail-badge"><strong>📚 Aligned Learning Theory/Model</strong><br>Transactional Distance Theory (Moore)</div>
+          <div class="detail-badge"><strong>🎯 Content Area</strong><br>All subjects (especially CSS, remote learning, and low-connectivity contexts)</div>
+          <div class="detail-badge"><strong>💡 Justification</strong><br>Provides downloadable modules, USB-based video tutorials, and offline LMS access. Ensures continuity for students with limited or no internet.</div>
+        </div>
+        <div class="video-access" onclick="alert('🎥 Accessibility: Screen readers, text alternatives, works on low-end devices, offline navigation. Video demo available.')">
+          <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Synthesis Statement -->
+    <div class="synthesis-box">
+      <h3><i class="fas fa-chart-line"></i> Synthesis: Patterns Across These Tools</h3>
+      <p>These six tools collectively demonstrate that effective technology integration rests on three pillars: <strong>active construction of knowledge</strong> (Packet Tracer, VirtualBox), <strong>collaborative and connected learning</strong> (Google Classroom, DepEd Commons), and <strong>universal design for inclusion</strong> (Canva, Offline-first resources). Each tool prioritizes learner agency, offering multiple entry points and modalities. They also share a commitment to accessibility — from screen readers to offline modes — ensuring that students regardless of connectivity or ability can participate. Together, they foster inclusive, active learning by moving beyond passive content consumption toward creation, simulation, and real-world problem solving. This toolkit equips educators to design resilient, learner-centered environments that honor diversity and equity.</p>
+    </div>
+  </section>
+
+  <!-- ========== REFLECTION SECTION ========== -->
+  <section id="reflection-section">
+    <div class="reflection-single-column">
+      <div class="memo-header">
+        <h1><i class="fas fa-feather-alt"></i> 📝 My Ethical Compass: Technology for Inclusive, Quality Education</h1>
+      </div>
+      
+      <div class="reflection-quote">
+        <i class="fas fa-quote-left" style="font-size: 2rem; opacity: 0.4;"></i>
+        <p style="font-size: 1.1rem; margin-top: 0.5rem;">"Computer Systems Servicing (CSS) plays an important role in understanding how computer systems work, are assembled, and maintained. As a learner, I see CSS not only as a technical subject but also as a foundation for developing digital literacy and responsible use of technology. It teaches practical skills such as troubleshooting hardware and software, which are essential in today's technology-driven world.
+
+Based on the idea that technology is a powerful tool in modern education, CSS shows how computers and digital systems can support learning when used properly. However, technology should not replace meaningful instruction or human guidance. Instead, it should enhance learning through hands-on experiences, interactive activities, and real-world applications. In CSS, this is reflected when students are given opportunities to physically assemble and disassemble computer systems, allowing deeper understanding rather than just theoretical knowledge.
+
+One of the most important issues connected to CSS and ICT education is the digital divide. Not all learners have equal access to computers, tools, or stable internet connections. This reminds me that learning CSS must be inclusive. Teachers and institutions should provide alternative activities such as simulations, offline modules, or group-based tasks so that no learner is left behind. Education should always prioritize fairness and accessibility.
+
+Another important lesson from CSS is the ethical use of technology. As students learn how systems work, they also become more aware of how technology affects society. Issues like cyberbullying, misinformation, and improper use of digital tools highlight the need for digital citizenship. In CSS, learners should not only develop technical skills but also learn responsibility in using technology safely and respectfully.
+
+Overall, Computer Systems Servicing is more than just a technical subject—it is a pathway to understanding how technology shapes education and society. My reflection is that ICT and CSS should always be guided by ethics, inclusivity, and responsibility. Technology should serve as a bridge to better learning opportunities, not a barrier. As a learner, I believe that developing both technical skills and ethical awareness is essential in becoming a responsible user and future professional in the field of technology."</p>
+        <p style="margin-top: 1rem;">— Andre S Jumalon, First Year · BTVTEd-CSS-1</p>
+      </div>
+
+      <div class="reflection-growth-box">
+        <div class="reflection-growth-grid">
+          <div class="growth-col">
+            <h3><i class="fas fa-seedling"></i> How I've Grown (So Far!)</h3>
+            <p>✅ Learned that ICT policy matters — it affects which tools students get.<br>
+              ✅ Discovered free simulation tools that can replace expensive lab equipment.<br>
+              ✅ Realized that teaching CSS is about building confidence, not just technical skills.<br>
+              ✅ Started thinking like a future educator — not just a student.</p>
+          </div>
+          <div class="growth-col">
+            <h3><i class="fas fa-glasses"></i> Where I'm Headed Next</h3>
+            <p>🚀 I want to build an offline CSS lab kit for rural schools.<br>
+              🎓 Get certified in Cisco NetAcad and Google for Education.<br>
+              🤝 Volunteer as a student tech mentor in my community.<br>
+              📖 Keep learning and sharing my EdTech discoveries!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LESSON SECTION WITH INTERACTIVE QUIZ ========== -->
+  <section id="lesson-section">
+    <div class="memo-header">
+      <h1><i class="fas fa-chalkboard-user"></i> Lesson Plan No. 1: Computer Assembly & Disassembly</h1>
+      <p>Learning Area: ICT-CSS | Quarter: Third Quarter | Grade Level: Non-Graded (TVET) | Duration: 1 Hour</p>
+      <p>Competency Code: <strong>TLE_IACSS9-12ICCS-Ia-e-28</strong> — Assemble computer hardware</p>
+    </div>
+
+    <!-- Download Lesson Plan Button -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+      <button type="button" class="download-lesson-btn" id="downloadLessonBtn">
+        <i class="fas fa-download"></i> Download Lesson Plan (PDF)
+      </button>
+    </div>
+
+    <div class="lesson-two-columns">
+      <div class="lesson-col">
+        <h3><i class="fas fa-certificate"></i> Content Standard</h3>
+        <p>Demonstrates understanding of computer hardware components and the correct procedures in assembling and disassembling computer systems.</p>
+        <h3><i class="fas fa-trophy"></i> Performance Standard</h3>
+        <p>Perform computer assembly and disassembly correctly and safely following standard procedures.</p>
+        <h3><i class="fas fa-flag-checkered"></i> Learning Objectives</h3>
+        <ul><li>1. Identify basic tools used in computer assembly.</li><li>2. Demonstrate proper assembly/disassembly steps.</li><li>3. Apply safety precautions while handling hardware.</li></ul>
+        <h3><i class="fas fa-lightbulb"></i> Key Concept</h3>
+        <p>Computer assembly/disassembly are essential skills involving correct installation, removal, and safety procedures.</p>
+        <h3><i class="fas fa-tools"></i> Basic Tools Needed</h3>
+        <div class="procedure-step">🔧 Screwdriver (Phillips & Flathead)</div>
+        <div class="procedure-step">⚡ Anti-static wrist strap</div>
+        <div class="procedure-step">🔌 Long nose pliers</div>
+        <div class="procedure-step">📎 Cable ties</div>
+        <h3><i class="fas fa-shield-alt"></i> Safety Precautions</h3>
+        <div class="procedure-step">✅ Wash and dry hands before working</div>
+        <div class="procedure-step">✅ Do not touch exposed circuits directly</div>
+        <div class="procedure-step">✅ Use proper tools only</div>
+      </div>
+      
+      <div class="lesson-col">
+        <h3><i class="fas fa-chalkboard"></i> Learning Procedures</h3>
+        <div class="procedure-step"><strong>📌 Drill & Motivation:</strong> Prayer, attendance, video about proper handling.</div>
+        <div class="procedure-step"><strong>👨‍🏫 Modeling (I Do):</strong> Teacher demonstrates tools and assembly/disassembly flow.</div>
+        <div class="procedure-step"><strong>🤝 Guided Practice (We Do):</strong> "Build it Right" – arrange steps 1-6.</div>
+        <div class="procedure-step"><strong>✍️ Application (You Do):</strong> "Identify and Decide" – find 3 computer devices at home.</div>
+        
+        <h3><i class="fas fa-gamepad"></i> 🎮 Interactive Quiz: Test Your Knowledge!</h3>
+        <div id="interactiveQuizContainer" class="interactive-quiz"></div>
+        
+        <h3><i class="fas fa-tasks"></i> Agreement / Assignment</h3>
+        <ul><li>1. List step-by-step assembly/disassembly procedure.</li><li>2. Give three common computer problems + solutions.</li><li>3. Explain importance of proper handling (3-5 sentences).</li></ul>
+        <h3><i class="fas fa-link"></i> Integration & Resources</h3>
+        <p><strong>References:</strong> <a href="#">DepEd CSS CG</a> | <strong>Resources:</strong> Pictures, Activity sheets, Video</p>
+        <p style="margin-top: 1rem; text-align: right;"><i class="fas fa-pen-fancy"></i> Prepared by: <strong>ANDRE S JUMALON</strong> | Future LPT</p>
+      </div>
+    </div>
+
+    <div class="lesson-explorer-section">
+      <div class="explorer-title"><i class="fas fa-search"></i> 🔍 Lesson Plan Explorer — Click any component for more details</div>
+      <div class="explorer-grid">
+        <div class="explorer-btn" data-lesson="contentStd"><i class="fas fa-certificate"></i> Content Standard</div>
+        <div class="explorer-btn" data-lesson="perfStd"><i class="fas fa-trophy"></i> Performance Standard</div>
+        <div class="explorer-btn" data-lesson="learningComp"><i class="fas fa-code-branch"></i> Learning Competency</div>
+        <div class="explorer-btn" data-lesson="keyConcept"><i class="fas fa-lightbulb"></i> Key Concept</div>
+        <div class="explorer-btn" data-lesson="objectives"><i class="fas fa-flag-checkered"></i> Objectives</div>
+        <div class="explorer-btn" data-lesson="evaluation"><i class="fas fa-clipboard-list"></i> Evaluation Details</div>
+        <div class="explorer-btn" data-lesson="agreement"><i class="fas fa-tasks"></i> Agreement/Assignment</div>
+      </div>
+    </div>
+
+    <div id="lessonDetailPanel" class="lesson-detail-panel">
+      <button class="close-detail" id="closeDetailBtn">&times;</button>
+      <div id="detailContent"></div>
+    </div>
+  </section>
+
+  <!-- ========== CLOSING SECTION - UPDATED with Circle Profile, Email & LinkedIn Mockup ========== -->
+  <section id="closing-section">
+    <div class="memo-header">
+      <h1><i class="fas fa-award"></i> 🌟 Thank You for Visiting My Portfolio!</h1>
+      <p>Andre S Jumalon · BTVTEd-CSS · First Year</p>
+    </div>
+
+    <div class="closing-container">
+      <!-- Circle Profile Image -->
+      <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
+        <img src="elgato.jpeg" alt="Andre S Jumalon Profile" class="profile-circle" onerror="this.src='https://via.placeholder.com/150?text=Andre'">
+      </div>
+      
+      <div style="text-align: center;">
+        <h2 style="color: var(--primary-deep); margin-bottom: 0.5rem;">Andre S. Jumalon</h2>
+        <div class="course-badge" style="margin: 0 auto 1rem auto; width: fit-content;">
+          <i class="fas fa-laptop-code"></i> BTVTEd-CSS 1 | Future Tech Educator
+        </div>
+      </div>
+
+      <div class="closing-flex">
+        <!-- Email Contact Card -->
+        <div class="contact-info" style="flex: 1; min-width: 250px;">
+          <i class="fas fa-envelope" style="font-size: 2rem; color: var(--primary-accent); margin-bottom: 0.5rem; display: inline-block;"></i>
+          <h3><i class="fas fa-paper-plane"></i> Get in Touch</h3>
+          <p style="margin: 0.5rem 0;">Feel free to reach out for collaborations, questions, or just to connect!</p>
+          <a href="mailto:acsjumalon01202501831@usep.edu.ph" style="font-size: 1.2rem; word-break: break-all;">📧 acsjumalon01202501831@usep.edu.ph</a>
+        </div>
+
+        <!-- LinkedIn Mockup Card -->
+        <div class="linkedin-mockup" onclick="alert('🔗 LinkedIn Profile Demo: I dont have linkedin. \n\nMockup Profile:\n• Andre S. Jumalon\n• BTVTEd-CSS Student\n• Aspiring EdTech Specialist\n• Computer Systems Servicing NC II\n\nConnect for networking and professional growth!')">
+          <i class="fab fa-linkedin"></i>
+          <h4><i class="fas fa-user-tie"></i> linkedin.com/in/andre-jumalon</h4>
+          <p>Mockup Profile • Click to view demo</p>
+          <p style="font-size: 0.7rem; margin-top: 0.5rem;"><i class="fas fa-share-alt"></i> Connect with me on LinkedIn</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eef2f8;">
+        <p><i class="fas fa-heart" style="color: #e74c3c;"></i> This e-portfolio is my big project as a BTVTEd-CSS student. It shows how much I've grown already. I'm excited to keep learning, building, and one day becoming a TVET teacher who makes tech fun and accessible for everyone.</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;"><i class="fas fa-calendar-alt"></i> Last Updated: May 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== REFERENCES SECTION ========== -->
+  <section id="references-section">
+    <div class="memo-header"><h1><i class="fas fa-book-open"></i> References</h1></div>
+    <div class="references-list">
+      <h3>📚 Learning Theories & Models</h3>
+      <ul>
+        <li>Bruner, J. (1961). <em>The discovery learning model</em>. In eLearning Industry. (2014, October 8). Instructional design models and theories: The discovery learning model. Retrieved from https://elearningindustry.com/discovery-learning-model</li>
+        <li>CAST. (2018). <em>Universal Design for Learning guidelines version 2.2</em>. Retrieved from https://udlguidelines.cast.org</li>
+        <li>Moore, M. G. (1993). <em>Transactional distance theory</em>. In Distance Education Theory.</li>
+        <li>Siemens, G. (2005). Connectivism: A learning theory for the digital age. <em>International Journal of Instructional Technology and Distance Learning</em>, 2(1), 3-10.</li>
+      </ul>
+    </div>
+    <div class="references-list">
+      <h3>📖 Pedagogical Approaches</h3>
+      <ul>
+        <li>Akçayır, G., & Akçayır, M. (2018). The flipped classroom: A review of its advantages and challenges. <em>Computers & Education</em>, 126, 334-345.</li>
+        <li>FeedbackFruits. (2022, March 28). <em>What is flipped classroom and how to best optimize this approach in online settings</em>.</li>
+        <li>Western Governors University. (2021, May 27). <em>Connectivism learning theory</em>.</li>
+      </ul>
+    </div>
+    <div class="references-list">
+      <h3>🎥 Video Resources</h3>
+      <ul>
+        <li>Teachings in Education. (2018, June 10). <em>Universal Design for Learning (UDL) [Video]</em>. YouTube.</li>
+        <li><a href="https://www.youtube.com/watch?v=UeaQ7Ou5H-Q&t=5s" target="_blank">Computer Assembly and Disassembly Tutorial [Video]</a>. YouTube.</li>
+      </ul>
+    </div>
+    <div class="references-list">
+      <h3>📄 Policy & Government Resources</h3>
+      <ul>
+        <li>Department of Education. (2019). <em>Computer Systems Servicing NC II Curriculum Guide</em>.</li>
+        <li>DepEd Commons. (2022). <em>Open Educational Resources for distance learning</em>. Manila: Department of Education.</li>
+        <li>TESDA. (2023). <em>CSS NC II competency standards</em>. Taguig: Technical Education and Skills Development Authority.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer><i class="fas fa-graduation-cap"></i> Bits & Blackboards · Andre S Jumalon · BTVTEd-CSS First Year</footer>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+// Navigation logic
+const sections = {
+  home: document.getElementById('home-section'),
+  policyMemo: document.getElementById('policyMemo-section'),
+  toolkit: document.getElementById('toolkit-section'),
+  reflection: document.getElementById('reflection-section'),
+  lesson: document.getElementById('lesson-section'),
+  closing: document.getElementById('closing-section'),
+  references: document.getElementById('references-section')
+};
+
+function showSection(sectionId) {
+  Object.values(sections).forEach(sec => { if (sec) sec.classList.remove('active-section'); });
+  const active = sections[sectionId];
+  if (active) {
+    active.classList.add('active-section');
+    history.pushState(null, null, `#${sectionId}`);
+    active.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else if (sections.home) sections.home.classList.add('active-section');
+}
+
+document.querySelectorAll('.navbar a').forEach(link => {
+  link.addEventListener('click', (e) => { e.preventDefault(); const section = link.getAttribute('data-section'); if(section && sections[section]) showSection(section); });
+});
+document.querySelectorAll('.clickable-card').forEach(card => {
+  card.addEventListener('click', () => { const target = card.getAttribute('data-nav'); if(target && sections[target]) showSection(target); });
+});
+
+// Enter Portfolio Button functionality
+const enterBtn = document.getElementById('enterPortfolioBtn');
+const dashboardContent = document.getElementById('dashboardContent');
+
+if (enterBtn && dashboardContent) {
+  enterBtn.addEventListener('click', () => {
+    dashboardContent.style.display = 'block';
+    dashboardContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
+// Lesson Explorer Data
+const detailPanel = document.getElementById('lessonDetailPanel');
+const detailContent = document.getElementById('detailContent');
+const closeBtn = document.getElementById('closeDetailBtn');
+if(closeBtn) closeBtn.onclick = () => { detailPanel.classList.remove('active-detail'); };
+
+function showLessonDetail(contentHTML, title) {
+  detailContent.innerHTML = `<h3 style="margin-bottom:0.75rem; color:#0f2b3d;"><i class="fas fa-chalkboard-teacher"></i> ${title}</h3>${contentHTML}`;
+  detailPanel.classList.add('active-detail');
+  detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const lessonData = {
+  contentStd: { title: "Content Standard", html: `<p>Demonstrates understanding of computer hardware components and correct assembly/disassembly procedures.</p>` },
+  perfStd: { title: "Performance Standard", html: `<p>Perform computer assembly and disassembly correctly and safely.</p>` },
+  learningComp: { title: "Learning Competency", html: `<p><strong>TLE_IACSS9-12ICCS-Ia-e-28</strong> — Assemble computer hardware.</p>` },
+  keyConcept: { title: "Key Concept", html: `<p>Computer assembly/disassembly are essential skills for troubleshooting, maintenance, and repair.</p>` },
+  objectives: { title: "Objectives", html: `<ul><li>Identify basic tools</li><li>Demonstrate assembly/disassembly steps</li><li>Apply safety precautions</li></ul>` },
+  evaluation: { title: "Evaluation", html: `<p>Quiz: Unplug power, screwdriver, anti-static strap, improve airflow.</p>` },
+  agreement: { title: "Agreement", html: `<ul><li>List assembly/disassembly steps</li><li>3 common problems + solutions</li><li>Importance of proper handling</li></ul>` }
+};
+
+document.querySelectorAll('.explorer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const key = btn.getAttribute('data-lesson');
+    if (key && lessonData[key]) showLessonDetail(lessonData[key].html, lessonData[key].title);
+    else showLessonDetail('<p>Lesson component details from the original DOCX.</p>', 'Lesson Component');
+  });
+});
+
+// Interactive Quiz
+const quizQuestions = [
+  { question: "What is the first step before opening a computer system unit?", options: ["Plug in the power", "Turn on the monitor", "Unplug the power source", "Install software"], correct: 2, explanation: "Always unplug the power source first to avoid electric shock." },
+  { question: "Which tool is commonly used to tighten or loosen screws inside a computer case?", options: ["Hammer", "Screwdriver", "Pliers", "Wrench"], correct: 1, explanation: "Screwdrivers are the proper tools for computer screws." },
+  { question: "What should you do before touching internal computer parts to avoid static electricity?", options: ["Wear headphones", "Touch metal or use anti-static wrist strap", "Increase brightness", "Clean monitor"], correct: 1, explanation: "Anti-static wrist straps discharge static safely." },
+  { question: "Why is proper cable management important inside a computer case?", options: ["To make it colorful", "To improve airflow and prevent damage", "To increase resolution", "To make it louder"], correct: 1, explanation: "Proper cable management improves airflow and prevents damage." }
+];
+let currentQuestionIndex = 0, score = 0, quizAnswered = false, quizCompleted = false;
+function renderQuiz() {
+  const container = document.getElementById('interactiveQuizContainer');
+  if (!container) return;
+  if (quizCompleted) {
+    container.innerHTML = `<div class="quiz-complete"><i class="fas fa-trophy" style="font-size:2rem;"></i><h3>Quiz Complete!</h3><p>Score: ${score}/${quizQuestions.length}</p><button class="reset-quiz" id="resetQuizBtn">Take Again</button></div>`;
+    document.getElementById('resetQuizBtn')?.addEventListener('click', resetQuiz);
+    return;
+  }
+  const q = quizQuestions[currentQuestionIndex];
+  let optsHtml = '';
+  q.options.forEach((opt, idx) => { optsHtml += `<div class="quiz-option" data-opt-index="${idx}">${String.fromCharCode(65+idx)}. ${opt}</div>`; });
+  container.innerHTML = `<div class="quiz-header"><span>Q${currentQuestionIndex+1}/${quizQuestions.length}</span><span>Score: ${score}</span></div><div class="quiz-question">${q.question}</div><div class="quiz-options">${optsHtml}</div><div id="quizFeedback"></div><div id="quizProgress"></div>`;
+  document.querySelectorAll('.quiz-option').forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      if (quizAnswered) return;
+      const selected = parseInt(opt.getAttribute('data-opt-index'));
+      const correct = (selected === q.correct);
+      if(correct) score++;
+      document.getElementById('quizFeedback').innerHTML = `<div class="${correct ? 'quiz-feedback correct' : 'quiz-feedback wrong'}">${correct ? '✅ Correct! ' + q.explanation : '❌ Incorrect. ' + q.explanation}</div>`;
+      document.querySelectorAll('.quiz-option').forEach(o => o.classList.add('disabled'));
+      quizAnswered = true;
+      if (currentQuestionIndex + 1 < quizQuestions.length) {
+        document.getElementById('quizProgress').innerHTML = `<button class="next-btn" id="nextBtn">Next →</button>`;
+        document.getElementById('nextBtn')?.addEventListener('click', () => { currentQuestionIndex++; quizAnswered = false; renderQuiz(); });
+      } else {
+        document.getElementById('quizProgress').innerHTML = `<button class="next-btn" id="finishBtn">Finish Quiz</button>`;
+        document.getElementById('finishBtn')?.addEventListener('click', () => { quizCompleted = true; renderQuiz(); });
+      }
+    });
+  });
+}
+function resetQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  quizAnswered = false;
+  quizCompleted = false;
+  renderQuiz();
+}
+function initQuiz() { if (document.getElementById('interactiveQuizContainer')) resetQuiz(); }
+const observer = new MutationObserver(() => { if (sections.lesson?.classList.contains('active-section')) initQuiz(); });
+observer.observe(sections.lesson, { attributes: true, attributeFilter: ['class'] });
+if (sections.lesson?.classList.contains('active-section')) initQuiz();
+
+function handleInitialHash() { const hash = window.location.hash.substring(1); if (hash && sections[hash]) showSection(hash); else showSection('home'); }
+window.addEventListener('load', handleInitialHash);
+
+// Download Lesson Plan as PDF functionality
+const downloadBtn = document.getElementById('downloadLessonBtn');
+if (downloadBtn) {
+  downloadBtn.addEventListener('click', function() {
+    const printWindow = window.open('', '_blank');
+
+    if (!printWindow) {
+      alert('Popup blocked by browser. Please allow popups for this page.');
+      return;
+    }
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Andre S Jumalon - Lesson Plan: Computer Assembly & Disassembly</title>
+          <meta charset="UTF-8">
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            body {
+              font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+              padding: 40px;
+              line-height: 1.6;
+              max-width: 1000px;
+              margin: 0 auto;
+              color: #1a2a3f;
+            }
+            h1 {
+              color: #0f2b3d;
+              border-bottom: 3px solid #2c7da0;
+              padding-bottom: 10px;
+              margin-bottom: 20px;
+            }
+            h2 {
+              color: #1e4a6e;
+              margin-top: 25px;
+              margin-bottom: 10px;
+              font-size: 1.4rem;
+            }
+            h3 {
+              color: #2c7da0;
+              margin-top: 20px;
+              margin-bottom: 8px;
+            }
+            .header {
+              text-align: center;
+              margin-bottom: 30px;
+            }
+            .header p {
+              margin: 5px 0;
+            }
+            .procedure-step {
+              background: #f8fafc;
+              margin: 8px 0;
+              padding: 8px 12px;
+              border-left: 3px solid #2c7da0;
+              border-radius: 8px;
+            }
+            ul, ol {
+              margin: 10px 0 10px 25px;
+            }
+            li {
+              margin: 5px 0;
+            }
+            .footer {
+              text-align: center;
+              margin-top: 40px;
+              font-size: 12px;
+              color: #666;
+              border-top: 1px solid #ddd;
+              padding-top: 20px;
+            }
+            .two-columns {
+              display: flex;
+              gap: 30px;
+              margin: 20px 0;
+            }
+            .col {
+              flex: 1;
+            }
+            hr {
+              margin: 20px 0;
+              border-color: #eef2f8;
+            }
+            @media print {
+              body {
+                padding: 20px;
+              }
+              .no-print {
+                display: none;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>Lesson Plan No. 1: Computer Assembly & Disassembly</h1>
+            <p><strong>Learning Area:</strong> ICT-CSS | <strong>Quarter:</strong> Third Quarter | <strong>Grade Level:</strong> Non-Graded (TVET) | <strong>Duration:</strong> 1 Hour</p>
+            <p><strong>Competency Code:</strong> TLE_IACSS9-12ICCS-Ia-e-28 — Assemble computer hardware</p>
+          </div>
+          
+          <div class="two-columns">
+            <div class="col">
+              <h2>📌 Content Standard</h2>
+              <p>Demonstrates understanding of computer hardware components and the correct procedures in assembling and disassembling computer systems.</p>
+              
+              <h2>🎯 Performance Standard</h2>
+              <p>Perform computer assembly and disassembly correctly and safely following standard procedures.</p>
+              
+              <h2>🏁 Learning Objectives</h2>
+              <ul>
+                <li>Identify the basic tools used in computer assembly and disassembly.</li>
+                <li>Demonstrate the proper steps in assembling and disassembling a computer system unit.</li>
+                <li>Apply safety precautions while handling computer hardware components.</li>
+              </ul>
+              
+              <h2>💡 Key Concept</h2>
+              <p>Computer assembly and disassembly are essential skills in Computer Systems Servicing that involve correctly installing, removing, and handling computer hardware components while following proper safety procedures. Understanding these processes helps students perform troubleshooting, maintenance, upgrading, and repair of computer systems effectively and safely.</p>
+            </div>
+            
+            <div class="col">
+              <h2>🔧 Basic Tools Needed</h2>
+              <div class="procedure-step">🔧 Screwdriver (Phillips & Flathead)</div>
+              <div class="procedure-step">⚡ Anti-static wrist strap</div>
+              <div class="procedure-step">🔌 Long nose pliers</div>
+              <div class="procedure-step">📎 Cable ties</div>
+              
+              <h2>🛡️ Safety Precautions</h2>
+              <div class="procedure-step">✅ Wash and dry hands before working</div>
+              <div class="procedure-step">✅ Do not touch exposed circuits directly</div>
+              <div class="procedure-step">✅ Use proper tools only</div>
+            </div>
+          </div>
+          
+          <hr>
+          
+          <h2>📖 Learning Procedures</h2>
+          <div class="procedure-step"><strong>📌 Drill & Motivation:</strong> Prayer, attendance, video about proper handling (https://www.youtube.com/watch?v=GpH5w8ZIXAc).</div>
+          <div class="procedure-step"><strong>👨‍🏫 Modeling (I Do):</strong> Teacher demonstrates tools and assembly/disassembly flow.</div>
+          <div class="procedure-step"><strong>🤝 Guided Practice (We Do):</strong> "Build it Right" – arrange steps 1-6.</div>
+          <div class="procedure-step"><strong>✍️ Application (You Do):</strong> "Identify and Decide" – find 3 computer devices at home.</div>
+          
+          <h2>📝 Assessment Questions</h2>
+          <ol>
+            <li>What is the first step before opening a computer system unit?</li>
+            <li>Which tool is commonly used to tighten or loosen screws inside a computer case?</li>
+            <li>What should you do before touching internal computer parts to avoid damage from static electricity?</li>
+            <li>Why is proper cable management important inside a computer case?</li>
+          </ol>
+          
+          <h2>📋 Agreement / Assignment</h2>
+          <ul>
+            <li>List step-by-step assembly/disassembly procedure.</li>
+            <li>Give three common computer problems + solutions.</li>
+            <li>Explain importance of proper handling (3-5 sentences).</li>
+          </ul>
+          
+          <h2>🔗 Integration & Resources</h2>
+          <p><strong>References:</strong> DepEd CSS CG</p>
+          <p><strong>Resources:</strong> Pictures, Activity sheets, Video</p>
+          <p><strong>Video Resource:</strong> <a href="https://www.youtube.com/watch?v=UeaQ7Ou5H-Q&t=5s">Computer Assembly and Disassembly Tutorial</a></p>
+          
+          <div class="footer">
+            <p>Prepared by: <strong>ANDRE S. JUMALON</strong> | Future LPT</p>
+            <p>Bits & Blackboards · Andre S Jumalon · BTVTEd-CSS First Year</p>
+            <p>📅 May 2026</p>
+          </div>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
+  });
+}
+
+});
+</script>
+</body>
+</html> 
