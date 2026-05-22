@@ -887,6 +887,51 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       background: linear-gradient(135deg, #3a8db0, #2c5d80);
     }
+    /* Embedded video modal styling */
+    .video-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .video-modal-content {
+      background-color: #000;
+      margin: auto;
+      padding: 0;
+      width: 90%;
+      max-width: 800px;
+      position: relative;
+    }
+    .close-video {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: #fff;
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .responsive-iframe {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+    .responsive-iframe iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   </style>
 </head>
 <body>
@@ -960,11 +1005,11 @@
           <tr><td><i class="fas fa-chalkboard"></i> DepEd Order No. 42, s. 2017 (PPST)</td>
             <td>Teachers must integrate ICT to enhance learning outcomes and develop digital literacy.</td>
             <td>Limited access to updated hardware and simulation tools; teachers lack structured training on ICT integration for CSS.</td>
-            </tr>
+          </tr>
           <tr><td><i class="fas fa-microchip"></i> TESDA CSS NCII Competency Standards</td>
             <td>Hands-on assembly/disassembly, network configuration, and safety procedures must be practiced.</td>
             <td>Insufficient lab equipment per student ratio; no offline-ready modules for students with poor internet connectivity.</td>
-            </tr>
+          </tr>
         </tbody>
       </table>
 
@@ -972,21 +1017,9 @@
       <table class="guideline-table">
         <thead><tr><th>Guideline (Numbered List + Icons)</th><th>Aligned Policy</th><th>Addresses This Gap (from Section 2)</th></tr></thead>
         <tbody>
-          <tr>
-            <td>1️⃣ <i class="fas fa-plug"></i> <strong>Implement Offline CSS Lab Kits</strong></td>
-            <td>TESDA CSS NCII & DepEd Commons</td>
-            <td>Bridges the lack of reliable internet and ensures continuous hands-on practice.</td>
-            </tr>
-          <tr>
-            <td>2️⃣ <i class="fas fa-chalkboard-user"></i> <strong>Rotational Peer-Teaching on Assembly</strong></td>
-            <td>PPST Strand 3.4 (Learner-Centered Strategies)</td>
-            <td>Maximizes limited hardware by allowing every student to observe, assist, and reflect.</td>
-            </tr>
-          <tr>
-            <td>3️⃣ <i class="fas fa-sim-card"></i> <strong>Simulation-Based Pre-Assembly Drills</strong></td>
-            <td>DepEd ICT Integration Framework</td>
-            <td>Reduces risk of hardware damage and prepares students with virtual troubleshooting experience.</td>
-            </tr>
+          <tr><td>1️⃣ <i class="fas fa-plug"></i> <strong>Implement Offline CSS Lab Kits</strong></td><td>TESDA CSS NCII & DepEd Commons</th><td>Bridges the lack of reliable internet and ensures continuous hands-on practice.</td></tr>
+          <tr><td>2️⃣ <i class="fas fa-chalkboard-user"></i> <strong>Rotational Peer-Teaching on Assembly</strong></th><td>PPST Strand 3.4 (Learner-Centered Strategies)</td><td>Maximizes limited hardware by allowing every student to observe, assist, and reflect.</td></tr>
+          <tr><td>3️⃣ <i class="fas fa-sim-card"></i> <strong>Simulation-Based Pre-Assembly Drills</strong></th><td>DepEd ICT Integration Framework</td><td>Reduces risk of hardware damage and prepares students with virtual troubleshooting experience.</td></tr>
         </tbody>
       </table>
 
@@ -1030,7 +1063,7 @@
           <div class="detail-badge"><strong>🎯 Content Area</strong><br>Technology / Computer Systems Servicing (CSS NCII)</div>
           <div class="detail-badge"><strong>💡 Justification</strong><br>Allows students to design, configure, and troubleshoot networks without physical hardware. Bridges theory and practice, reduces lab costs, and supports self-paced exploration.</div>
         </div>
-        <div class="video-access" onclick="alert('🎥 Accessibility Feature: Packet Tracer includes screen reader support, high-contrast mode, and keyboard shortcuts. The desktop app offers offline access. Video tutorial available.')">
+        <div class="video-access" data-video="https://www.youtube.com/embed/qZB_biPOBwA?autoplay=1">
           <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
         </div>
       </div>
@@ -1046,12 +1079,12 @@
           <div class="detail-badge"><strong>🎯 Content Area</strong><br>Technology / Operating Systems / CSS</div>
           <div class="detail-badge"><strong>💡 Justification</strong><br>Enables safe sandboxed environment for OS installation, partitioning, and troubleshooting. Fosters experimentation without damaging host hardware.</div>
         </div>
-        <div class="video-access" onclick="alert('🎥 Accessibility: VirtualBox supports high contrast, magnification tools, custom hotkeys, and narrator integration. Video tutorial available.')">
+        <div class="video-access" data-video="https://www.youtube.com/embed/yIVXjl4SwVo?autoplay=1">
           <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
         </div>
       </div>
 
-      <!-- Tool 3: DepEd Commons + TESDA e-LMS -->
+      <!-- Tool 3: DepEd Commons + TESDA e-LMS (Alert only) -->
       <div class="toolkit-card">
         <div class="toolkit-header">
           <div class="toolkit-icon"><i class="fas fa-database"></i></div>
@@ -1078,7 +1111,7 @@
           <div class="detail-badge"><strong>🎯 Content Area</strong><br>All subjects (P.E., English, Math, Science, Technology, Social Studies, Arts)</div>
           <div class="detail-badge"><strong>💡 Justification</strong><br>Streamlines assignment distribution, feedback loops, and parent communication. Supports differentiated instruction and real-time collaboration.</div>
         </div>
-        <div class="video-access" onclick="alert('🎥 Accessibility: ChromeVox screen reader, voice typing, translation tools, closed captions, mobile accessibility. Video walkthrough available.')">
+        <div class="video-access" data-video="https://www.youtube.com/embed/rCNImsWUxZA?autoplay=1">
           <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
         </div>
       </div>
@@ -1094,12 +1127,12 @@
           <div class="detail-badge"><strong>🎯 Content Area</strong><br>All subjects (Visual Arts, English, Social Studies, Technology, Math, Science)</div>
           <div class="detail-badge"><strong>💡 Justification</strong><br>Empowers students to create infographics, presentations, and posters. Low floor, high ceiling – supports diverse learners and creative expression.</div>
         </div>
-        <div class="video-access" onclick="alert('🎥 Accessibility: Alt-text for images, keyboard shortcuts, screen reader support, color-blind friendly templates. Video tutorial available.')">
+        <div class="video-access" data-video="https://www.youtube.com/embed/LPC_elqSAXA?autoplay=1">
           <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
         </div>
       </div>
 
-      <!-- Tool 6: Offline-First Resources -->
+      <!-- Tool 6: Offline-First Resources (Moodle) -->
       <div class="toolkit-card">
         <div class="toolkit-header">
           <div class="toolkit-icon"><i class="fas fa-mobile-alt"></i></div>
@@ -1110,7 +1143,7 @@
           <div class="detail-badge"><strong>🎯 Content Area</strong><br>All subjects (especially CSS, remote learning, and low-connectivity contexts)</div>
           <div class="detail-badge"><strong>💡 Justification</strong><br>Provides downloadable modules, USB-based video tutorials, and offline LMS access. Ensures continuity for students with limited or no internet.</div>
         </div>
-        <div class="video-access" onclick="alert('🎥 Accessibility: Screen readers, text alternatives, works on low-end devices, offline navigation. Video demo available.')">
+        <div class="video-access" data-video="https://www.youtube.com/embed/33X9LcynmZ0?autoplay=1">
           <span class="video-placeholder"><i class="fas fa-video"></i> Watch Accessibility Explanation (Video)</span>
         </div>
       </div>
@@ -1323,6 +1356,16 @@ Overall, Computer Systems Servicing is more than just a technical subject—it i
   <footer><i class="fas fa-graduation-cap"></i> Bits & Blackboards · Andre S Jumalon · BTVTEd-CSS First Year</footer>
 </main>
 
+<!-- Modal for Video Embed -->
+<div id="videoModal" class="video-modal">
+  <div class="video-modal-content">
+    <span class="close-video">&times;</span>
+    <div class="responsive-iframe">
+      <iframe id="modalIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 // Navigation logic
@@ -1453,12 +1496,10 @@ const downloadBtn = document.getElementById('downloadLessonBtn');
 if (downloadBtn) {
   downloadBtn.addEventListener('click', function() {
     const printWindow = window.open('', '_blank');
-
     if (!printWindow) {
       alert('Popup blocked by browser. Please allow popups for this page.');
       return;
     }
-
     printWindow.document.write(`
       <!DOCTYPE html>
       <html>
@@ -1466,159 +1507,27 @@ if (downloadBtn) {
           <title>Andre S Jumalon - Lesson Plan: Computer Assembly & Disassembly</title>
           <meta charset="UTF-8">
           <style>
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-            }
-            body {
-              font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-              padding: 40px;
-              line-height: 1.6;
-              max-width: 1000px;
-              margin: 0 auto;
-              color: #1a2a3f;
-            }
-            h1 {
-              color: #0f2b3d;
-              border-bottom: 3px solid #2c7da0;
-              padding-bottom: 10px;
-              margin-bottom: 20px;
-            }
-            h2 {
-              color: #1e4a6e;
-              margin-top: 25px;
-              margin-bottom: 10px;
-              font-size: 1.4rem;
-            }
-            h3 {
-              color: #2c7da0;
-              margin-top: 20px;
-              margin-bottom: 8px;
-            }
-            .header {
-              text-align: center;
-              margin-bottom: 30px;
-            }
-            .header p {
-              margin: 5px 0;
-            }
-            .procedure-step {
-              background: #f8fafc;
-              margin: 8px 0;
-              padding: 8px 12px;
-              border-left: 3px solid #2c7da0;
-              border-radius: 8px;
-            }
-            ul, ol {
-              margin: 10px 0 10px 25px;
-            }
-            li {
-              margin: 5px 0;
-            }
-            .footer {
-              text-align: center;
-              margin-top: 40px;
-              font-size: 12px;
-              color: #666;
-              border-top: 1px solid #ddd;
-              padding-top: 20px;
-            }
-            .two-columns {
-              display: flex;
-              gap: 30px;
-              margin: 20px 0;
-            }
-            .col {
-              flex: 1;
-            }
-            hr {
-              margin: 20px 0;
-              border-color: #eef2f8;
-            }
-            @media print {
-              body {
-                padding: 20px;
-              }
-              .no-print {
-                display: none;
-              }
-            }
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Inter', 'Segoe UI', Arial, sans-serif; padding: 40px; line-height: 1.6; max-width: 1000px; margin: 0 auto; color: #1a2a3f; }
+            h1 { color: #0f2b3d; border-bottom: 3px solid #2c7da0; padding-bottom: 10px; margin-bottom: 20px; }
+            h2 { color: #1e4a6e; margin-top: 25px; margin-bottom: 10px; font-size: 1.4rem; }
+            h3 { color: #2c7da0; margin-top: 20px; margin-bottom: 8px; }
+            .header { text-align: center; margin-bottom: 30px; }
+            .procedure-step { background: #f8fafc; margin: 8px 0; padding: 8px 12px; border-left: 3px solid #2c7da0; border-radius: 8px; }
+            ul, ol { margin: 10px 0 10px 25px; }
+            .footer { text-align: center; margin-top: 40px; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 20px; }
+            .two-columns { display: flex; gap: 30px; margin: 20px 0; }
+            .col { flex: 1; }
+            hr { margin: 20px 0; }
           </style>
         </head>
         <body>
-          <div class="header">
-            <h1>Lesson Plan No. 1: Computer Assembly & Disassembly</h1>
-            <p><strong>Learning Area:</strong> ICT-CSS | <strong>Quarter:</strong> Third Quarter | <strong>Grade Level:</strong> Non-Graded (TVET) | <strong>Duration:</strong> 1 Hour</p>
-            <p><strong>Competency Code:</strong> TLE_IACSS9-12ICCS-Ia-e-28 — Assemble computer hardware</p>
-          </div>
-          
-          <div class="two-columns">
-            <div class="col">
-              <h2>📌 Content Standard</h2>
-              <p>Demonstrates understanding of computer hardware components and the correct procedures in assembling and disassembling computer systems.</p>
-              
-              <h2>🎯 Performance Standard</h2>
-              <p>Perform computer assembly and disassembly correctly and safely following standard procedures.</p>
-              
-              <h2>🏁 Learning Objectives</h2>
-              <ul>
-                <li>Identify the basic tools used in computer assembly and disassembly.</li>
-                <li>Demonstrate the proper steps in assembling and disassembling a computer system unit.</li>
-                <li>Apply safety precautions while handling computer hardware components.</li>
-              </ul>
-              
-              <h2>💡 Key Concept</h2>
-              <p>Computer assembly and disassembly are essential skills in Computer Systems Servicing that involve correctly installing, removing, and handling computer hardware components while following proper safety procedures. Understanding these processes helps students perform troubleshooting, maintenance, upgrading, and repair of computer systems effectively and safely.</p>
-            </div>
-            
-            <div class="col">
-              <h2>🔧 Basic Tools Needed</h2>
-              <div class="procedure-step">🔧 Screwdriver (Phillips & Flathead)</div>
-              <div class="procedure-step">⚡ Anti-static wrist strap</div>
-              <div class="procedure-step">🔌 Long nose pliers</div>
-              <div class="procedure-step">📎 Cable ties</div>
-              
-              <h2>🛡️ Safety Precautions</h2>
-              <div class="procedure-step">✅ Wash and dry hands before working</div>
-              <div class="procedure-step">✅ Do not touch exposed circuits directly</div>
-              <div class="procedure-step">✅ Use proper tools only</div>
-            </div>
-          </div>
-          
-          <hr>
-          
-          <h2>📖 Learning Procedures</h2>
-          <div class="procedure-step"><strong>📌 Drill & Motivation:</strong> Prayer, attendance, video about proper handling (https://www.youtube.com/watch?v=GpH5w8ZIXAc).</div>
-          <div class="procedure-step"><strong>👨‍🏫 Modeling (I Do):</strong> Teacher demonstrates tools and assembly/disassembly flow.</div>
-          <div class="procedure-step"><strong>🤝 Guided Practice (We Do):</strong> "Build it Right" – arrange steps 1-6.</div>
-          <div class="procedure-step"><strong>✍️ Application (You Do):</strong> "Identify and Decide" – find 3 computer devices at home.</div>
-          
-          <h2>📝 Assessment Questions</h2>
-          <ol>
-            <li>What is the first step before opening a computer system unit?</li>
-            <li>Which tool is commonly used to tighten or loosen screws inside a computer case?</li>
-            <li>What should you do before touching internal computer parts to avoid damage from static electricity?</li>
-            <li>Why is proper cable management important inside a computer case?</li>
-          </ol>
-          
-          <h2>📋 Agreement / Assignment</h2>
-          <ul>
-            <li>List step-by-step assembly/disassembly procedure.</li>
-            <li>Give three common computer problems + solutions.</li>
-            <li>Explain importance of proper handling (3-5 sentences).</li>
-          </ul>
-          
-          <h2>🔗 Integration & Resources</h2>
-          <p><strong>References:</strong> DepEd CSS CG</p>
-          <p><strong>Resources:</strong> Pictures, Activity sheets, Video</p>
-          <p><strong>Video Resource:</strong> <a href="https://www.youtube.com/watch?v=UeaQ7Ou5H-Q&t=5s">Computer Assembly and Disassembly Tutorial</a></p>
-          
-          <div class="footer">
-            <p>Prepared by: <strong>ANDRE S. JUMALON</strong> | Future LPT</p>
-            <p>Bits & Blackboards · Andre S Jumalon · BTVTEd-CSS First Year</p>
-            <p>📅 May 2026</p>
-          </div>
+          <div class="header"><h1>Lesson Plan No. 1: Computer Assembly & Disassembly</h1><p><strong>Learning Area:</strong> ICT-CSS | <strong>Quarter:</strong> Third Quarter | <strong>Grade Level:</strong> Non-Graded (TVET) | <strong>Duration:</strong> 1 Hour</p><p><strong>Competency Code:</strong> TLE_IACSS9-12ICCS-Ia-e-28</p></div>
+          <div class="two-columns"><div class="col"><h2>📌 Content Standard</h2><p>Demonstrates understanding of computer hardware components and correct assembly/disassembly procedures.</p><h2>🎯 Performance Standard</h2><p>Perform computer assembly/disassembly correctly and safely.</p><h2>🏁 Learning Objectives</h2><ul><li>Identify basic tools</li><li>Demonstrate proper steps</li><li>Apply safety precautions</li></ul><h2>💡 Key Concept</h2><p>Essential skills for troubleshooting and repair.</p></div><div class="col"><h2>🔧 Basic Tools Needed</h2><div class="procedure-step">🔧 Screwdriver</div><div class="procedure-step">⚡ Anti-static wrist strap</div><div class="procedure-step">🔌 Long nose pliers</div><div class="procedure-step">📎 Cable ties</div><h2>🛡️ Safety Precautions</h2><div class="procedure-step">✅ Wash hands</div><div class="procedure-step">✅ Avoid exposed circuits</div><div class="procedure-step">✅ Use proper tools</div></div></div>
+          <hr><h2>📖 Learning Procedures</h2><div class="procedure-step"><strong>📌 Drill & Motivation:</strong> Video about proper handling.</div><div class="procedure-step"><strong>👨‍🏫 Modeling (I Do):</strong> Teacher demonstrates tools and flow.</div><div class="procedure-step"><strong>🤝 Guided Practice (We Do):</strong> "Build it Right"</div><div class="procedure-step"><strong>✍️ Application (You Do):</strong> Find 3 computer devices at home.</div>
+          <h2>📝 Assessment Questions</h2><ol><li>First step before opening a computer?</li><li>Which tool for screws?</li><li>How to avoid static electricity?</li><li>Why proper cable management?</li></ol>
+          <h2>📋 Agreement / Assignment</h2><ul><li>List assembly/disassembly steps</li><li>Three common computer problems + solutions</li><li>Importance of proper handling</li></ul>
+          <div class="footer"><p>Prepared by: <strong>ANDRE S. JUMALON</strong> | Future LPT</p><p>Bits & Blackboards · Andre S Jumalon · BTVTEd-CSS First Year</p></div>
         </body>
       </html>
     `);
@@ -1627,7 +1536,37 @@ if (downloadBtn) {
   });
 }
 
+// Video Modal Logic
+const modal = document.getElementById('videoModal');
+const modalIframe = document.getElementById('modalIframe');
+const closeSpan = document.querySelector('.close-video');
+const videoTriggers = document.querySelectorAll('.video-access[data-video]');
+
+function openVideo(embedUrl) {
+  if (!modal || !modalIframe) return;
+  modalIframe.src = embedUrl;
+  modal.style.display = 'flex';
+}
+
+function closeVideoModal() {
+  if (modal) {
+    modal.style.display = 'none';
+    if (modalIframe) modalIframe.src = '';
+  }
+}
+
+if (closeSpan) closeSpan.addEventListener('click', closeVideoModal);
+window.addEventListener('click', (e) => { if (e.target === modal) closeVideoModal(); });
+
+videoTriggers.forEach(trigger => {
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const videoUrl = trigger.getAttribute('data-video');
+    if (videoUrl) openVideo(videoUrl);
+  });
+});
+
 });
 </script>
 </body>
-</html> 
+</html>
